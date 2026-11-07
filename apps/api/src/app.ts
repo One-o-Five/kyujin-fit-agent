@@ -3,6 +3,7 @@ import type { ErrorResponse } from '@kyujin/shared';
 import { AppError } from './lib/app-error';
 import { healthRoutes } from './routes/health';
 import { createHealthService, type HealthService } from './services/health-service';
+import { toValidationDetails } from './lib/validation';
 
 /** 外部依存の差し替え口。テストではここにモックを渡す。 */
 export interface AppDeps {
@@ -26,7 +27,7 @@ export function createApp(deps: AppDeps = defaultDeps()) {
           error: {
             code: 'VALIDATION_ERROR',
             message: '入力値が正しくありません',
-            details: result.error.issues,
+            details: toValidationDetails(result.error.issues),
           },
         };
         return c.json(body, 400);
