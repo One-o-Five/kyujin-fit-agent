@@ -2,7 +2,7 @@
 
 **日本の求人票に特化した**、求人票と職務経歴書のマッチング分析サービスです。LLMで両者を比較し、要件ごとのマッチ度、面接でのアピール方法・補強すべきスキル、応募前に確認すべき労働条件を提示します。
 
-> 🚧 開発中（2026年11月〜）。設計フェーズです。
+> 🚧 開発中（2026年11月〜）。バックエンド・フロントエンドの構築フェーズです。
 
 ## 解決したい課題
 
@@ -34,45 +34,57 @@
 
 ## 技術スタック（予定）
 
-| 領域 | 技術 |
-|---|---|
-| フロントエンド | React, TypeScript, Vite |
-| バックエンド | TypeScript, Hono, Zod（評価スクリプトのみ Python） |
-| DB | PostgreSQL |
-| インフラ | AWS（ECS Fargate, RDS, S3, CloudFront, ALB）、IaC |
-| CI/CD | GitHub Actions |
-| LLM / LLMOps | 構造化出力、Tool use、評価データセットによる自動評価、トレース監視（候補: promptfoo, Langfuse） |
+| 領域           | 技術                                                                                            |
+| -------------- | ----------------------------------------------------------------------------------------------- |
+| フロントエンド | React, TypeScript, Vite                                                                         |
+| バックエンド   | TypeScript, Hono, Zod（評価スクリプトのみ Python）                                              |
+| DB             | PostgreSQL                                                                                      |
+| インフラ       | AWS（ECS Fargate, RDS, S3, CloudFront, ALB）、IaC                                               |
+| CI/CD          | GitHub Actions                                                                                  |
+| LLM / LLMOps   | 構造化出力、Tool use、評価データセットによる自動評価、トレース監視（候補: promptfoo, Langfuse） |
 
 ## 設計ドキュメント
 
-| ドキュメント | 内容 |
-|---|---|
-| [要件定義](docs/requirements.md) | ユーザーシナリオ、日本特化の機能、MVPの範囲、コスト制御 |
-| [データモデル](docs/data-model.md) | ER図、テーブル定義 |
-| [API設計](docs/api.md) | エンドポイント一覧、非同期処理、エラー形式 |
-| [アーキテクチャ](docs/architecture.md) | 全体構成図、リクエストの流れ、未決定事項 |
+| ドキュメント                           | 内容                                                    |
+| -------------------------------------- | ------------------------------------------------------- |
+| [要件定義](docs/requirements.md)       | ユーザーシナリオ、日本特化の機能、MVPの範囲、コスト制御 |
+| [データモデル](docs/data-model.md)     | ER図、テーブル定義                                      |
+| [API設計](docs/api.md)                 | エンドポイント一覧、非同期処理、エラー形式              |
+| [アーキテクチャ](docs/architecture.md) | 全体構成図、リクエストの流れ、未決定事項                |
 
 ### 設計判断の記録（ADR）
 
 [MADR](https://github.com/adr/madr) 形式で記録しています。一覧と運用ルールは [docs/adr](docs/adr/README.md) を参照してください。
 
-| No. | 決定 |
-|---|---|
-| [0001](docs/adr/0001-analysis-result-storage.md) | 分析結果をLLM出力の原本（JSONB）と正規化テーブルの両方に保存する |
+| No.                                                 | 決定                                                                            |
+| --------------------------------------------------- | ------------------------------------------------------------------------------- |
+| [0001](docs/adr/0001-analysis-result-storage.md)    | 分析結果をLLM出力の原本（JSONB）と正規化テーブルの両方に保存する                |
 | [0002](docs/adr/0002-backend-language-framework.md) | バックエンドを TypeScript + Hono で実装し、評価スクリプトのみ Python を許可する |
-| [0003](docs/adr/0003-authentication.md) | 認証にサーバーセッションと HttpOnly Cookie を使う |
-| [0004](docs/adr/0004-frontend-spa.md) | フロントエンドを SPA（React + Vite）で構成し、静的ホスティングで配信する |
+| [0003](docs/adr/0003-authentication.md)             | 認証にサーバーセッションと HttpOnly Cookie を使う                               |
+| [0004](docs/adr/0004-frontend-spa.md)               | フロントエンドを SPA（React + Vite）で構成し、静的ホスティングで配信する        |
 
 ## ロードマップ
 
-| フェーズ | 内容 | 状況 |
-|---|---|---|
-| P0 | 設計 | 進行中 |
-| P1 | バックエンド・フロントエンドの構築 | 未着手 |
-| P2 | AWSインフラ構築（IaC、CI/CD） | 未着手 |
-| P3 | LLM・エージェント機能 | 未着手 |
-| P4 | LLMOps（評価・監視） | 未着手 |
-| P5 | ドキュメント整備・技術記事 | 未着手 |
+| フェーズ | 内容                               | 状況   |
+| -------- | ---------------------------------- | ------ |
+| P0       | 設計                               | 進行中 |
+| P1       | バックエンド・フロントエンドの構築 | 未着手 |
+| P2       | AWSインフラ構築（IaC、CI/CD）      | 未着手 |
+| P3       | LLM・エージェント機能              | 未着手 |
+| P4       | LLMOps（評価・監視）               | 未着手 |
+| P5       | ドキュメント整備・技術記事         | 未着手 |
+
+## ローカルでの開発
+
+Node.js 22 以上と pnpm が必要です。
+
+```bash
+pnpm install
+pnpm dev:api   # API: http://localhost:8787/api/health
+pnpm dev:web   # 画面: http://localhost:5173
+```
+
+API仕様（OpenAPI）は `http://localhost:8787/api/openapi.json` で確認できます。
 
 ## ディレクトリ構成（予定）
 
