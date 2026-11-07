@@ -1,0 +1,41 @@
+# 依存関係
+node_modules/
+.pnpm-store/
+
+# ビルド成果物
+dist/
+build/
+coverage/
+*.tsbuildinfo
+
+# 環境変数（秘密情報は絶対にコミットしない）
+.env
+.env.*
+!.env.example
+
+# Python（evals/）
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+
+# IaC
+.terraform/
+*.tfstate
+*.tfstate.*
+cdk.out/
+
+# ログ・一時ファイル
+*.log
+logs/
+tmp/
+
+# エディタ・OS
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+
+# Claude Code の個人用設定（共有しない）
+CLAUDE.local.md
