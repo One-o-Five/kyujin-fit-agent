@@ -32,7 +32,14 @@
 | [0003](0003-authentication.md) | 認証にサーバーセッションと HttpOnly Cookie を使う | accepted |
 | [0004](0004-frontend-spa.md) | フロントエンドを SPA（React + Vite）で構成し、静的ホスティングで配信する | accepted |
 
-### 今後作成予定（P2）
+### 今後作成予定
+
+#### P1
+
+* LLMのプロバイダー・モデルと構造化出力の方式
+* DBアクセスライブラリ
+
+#### P3
 
 * 外部通信の経路（NAT Gateway / パブリックサブネット）
 * DB（RDS / Aurora Serverless）
