@@ -40,7 +40,6 @@ describe('POST /api/analyses', () => {
   });
 
   it('上限を超えるテキストは 400 を返す', async () => {
-    // 自分で書いてみる
     const res = await post({ rawText: 'あ'.repeat(JOB_TEXT_MAX_LENGTH + 1) });
 
     expect(res.status).toBe(400);
@@ -55,7 +54,6 @@ describe('POST /api/analyses', () => {
   });
 
   it('rawText がないと 400 を返す', async () => {
-    // 自分で書いてみる（空のオブジェクトを送る）
     const res = await post({});
 
     expect(res.status).toBe(400);
