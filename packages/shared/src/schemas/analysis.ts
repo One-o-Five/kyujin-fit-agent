@@ -19,9 +19,18 @@ export function normalizeJobText(text: string): string {
 
 export const CreateAnalysisRequestSchema = z.object({
   rawText: z
-    .string()
+    .string({ error: '求人テキストは必須です' })
     .transform(normalizeJobText)
-    .pipe(z.string().min(JOB_TEXT_MIN_LENGTH).max(JOB_TEXT_MAX_LENGTH)),
+    .pipe(
+      z
+        .string()
+        .min(JOB_TEXT_MIN_LENGTH, {
+          error: `求人テキストは${JOB_TEXT_MIN_LENGTH}文字以上で入力してください`,
+        })
+        .max(JOB_TEXT_MAX_LENGTH, {
+          error: `求人テキストは${JOB_TEXT_MAX_LENGTH}文字以内で入力してください`,
+        }),
+    ),
 });
 export type CreateAnalysisRequest = z.infer<typeof CreateAnalysisRequestSchema>;
 

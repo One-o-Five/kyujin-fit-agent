@@ -2,9 +2,13 @@ import { ErrorResponseSchema, HealthResponseSchema } from '@kyujin/shared';
 import { describe, expect, it } from 'vitest';
 import { createApp } from './app';
 import { createHealthService } from './services/health-service';
+import { createAnalysisService } from './services/analysis-service';
 
 const fixedNow = () => new Date('2026-11-09T00:00:00.000Z');
-const app = createApp({ healthService: createHealthService(fixedNow) });
+const app = createApp({
+  healthService: createHealthService(fixedNow),
+  analysisService: createAnalysisService(),
+});
 
 describe('GET /api/health', () => {
   it('200 と共有スキーマに沿った本文を返す', async () => {

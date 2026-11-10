@@ -4,14 +4,17 @@ import { AppError } from './lib/app-error';
 import { healthRoutes } from './routes/health';
 import { createHealthService, type HealthService } from './services/health-service';
 import { toValidationDetails } from './lib/validation';
+import { createAnalysisService, type AnalysisService } from './services/analysis-service';
+import { analysisRoutes } from './routes/analyses';
 
 /** 外部依存の差し替え口。テストではここにモックを渡す。 */
 export interface AppDeps {
   healthService: HealthService;
+  analysisService: AnalysisService;
 }
 
 export function defaultDeps(): AppDeps {
-  return { healthService: createHealthService() };
+  return { healthService: createHealthService(), analysisService: createAnalysisService() };
 }
 
 /**
@@ -36,6 +39,7 @@ export function createApp(deps: AppDeps = defaultDeps()) {
   }).basePath('/api');
 
   app.route('/', healthRoutes(deps.healthService));
+  app.route('/', analysisRoutes(deps.analysisService));
 
   app.doc('/openapi.json', {
     openapi: '3.1.0',
