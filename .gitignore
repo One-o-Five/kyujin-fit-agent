@@ -39,3 +39,6 @@ Thumbs.db
 
 # Claude Code の個人用設定（共有しない）
 CLAUDE.local.md
+
+# 実在する求人票など、公開しない評価データ
+evals/private/

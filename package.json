@@ -14,7 +14,8 @@
     "test": "pnpm -r test",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "extract": "pnpm --filter @kyujin/api extract"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
